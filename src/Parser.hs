@@ -36,19 +36,19 @@ addEquation (Equation a_terms a_constant) (Equation b_terms b_constant) =
     Equation (a_terms ++ b_terms) (a_constant + b_constant)
 
 negateEquation :: Equation -> Equation
-negateEquation (Equation terms constant) = (Equation (fmap (\(qt, vn) -> (-qt, vn)) terms) (-constant))
+negateEquation (Equation terms constant) = (Equation ((\(qt, vn) -> (-qt, vn)) <$> terms) (-constant))
 
 subEquation :: Equation -> Equation -> Equation
 subEquation a b = addEquation a (negateEquation b)
 
 mulEquation :: Equation -> Equation -> Equation
 mulEquation (Equation terms const) (Equation [] const') = Equation (fmap (\(qt, vn) -> (qt * const', vn)) terms) (const * const')
-mulEquation (Equation [] const') (Equation terms const)= Equation (fmap (\(qt, vn) -> (qt * const', vn)) terms) (const * const')
+mulEquation (Equation [] const') (Equation terms const) = Equation (fmap (\(qt, vn) -> (qt * const', vn)) terms) (const * const')
 mulEquation _ _ = error "The resulting system is non-linear"
 
 divEquation :: Equation -> Equation -> Equation
 divEquation (Equation terms const) (Equation [] const') = Equation (fmap (\(qt, vn) -> (qt / const', vn)) terms) (const / const')
-divEquation (Equation [] const') (Equation terms const)= Equation (fmap (\(qt, vn) -> (qt / const, vn)) terms) (const' / const)
+divEquation (Equation [] const') (Equation terms const) = Equation (fmap (\(qt, vn) -> (qt / const, vn)) terms) (const' / const)
 divEquation _ _ = error "The resulting system is non-linear"
 
 number :: Parser Equation
