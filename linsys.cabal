@@ -27,7 +27,6 @@ library
   exposed-modules:
       Linsys
       Parser
-      Precision
       Writer
   other-modules:
       Paths_linsys

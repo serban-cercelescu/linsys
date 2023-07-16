@@ -88,14 +88,13 @@ solve eqs0 = if consistent then Just ans else Nothing where
         let bound = flip any [0..n-1] $ \i -> solvedMatrix !! i !! col /= 0 && all (\j -> solvedMatrix !! i !! j == 0) [0..col-1] 
         if bound then
             let i = head $ filter (\i -> solvedMatrix !! i !! col /= 0) [0..n-1] in
-            let myEq = flip Equation (solvedMatrix !! i !! m) $ do {
+            let myEq = flip Equation (-solvedMatrix !! i !! m) $ do {
                 j <- [0..m-1];
                 if j == col then
                     []
                 else
-                    return (solvedMatrix !! i !! j, vars !! j)
+                    return (-solvedMatrix !! i !! j, vars !! j)
             }; in
-
             return (v, myEq)
         else
             return (v, Equation [] 0)
