@@ -11,16 +11,17 @@ data Equation = Equation [(Double, Variable)] Double
     deriving (Eq)
 
 instance Show Variable where
+    show (Variable "") = ""
     show (Variable var) = '$' : var
 
 instance Show Equation where
-    show (Equation terms constant) = showEq' $ ((\(qt, Variable var) -> (qt, var)) <$> terms) ++ [(constant, "")] where
+    show (Equation terms constant) = showEq' $ terms ++ [(constant, Variable "")] where
         showEq' [] = ""
-        showEq' [(qt, var)] = show qt ++ var
+        showEq' [(qt, var)] = show qt ++ show var
         showEq' ((qt1, var1) : term2@(qt2, _) : rest)
             | qt1 == 0 = showEq' (term2 : rest)
-            | qt2 >= 0 = show qt1 ++ var1 ++ "+" ++ showEq' (term2 : rest)
-            | qt2 < 0 = show qt1 ++ var1 ++ showEq' (term2 : rest)
+            | qt2 >= 0 = show qt1 ++ "*" ++ show var1 ++ "+" ++ showEq' (term2 : rest)
+            | qt2 < 0 = show qt1 ++  "*" ++ show var1 ++ showEq' (term2 : rest)
             | otherwise = error "This should never happen"
 
 gauss :: [[Double]] -> [[Double]]

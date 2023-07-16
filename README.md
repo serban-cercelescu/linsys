@@ -15,5 +15,7 @@ If the system is inconsistent, the program will output `No solution`. If the sys
 -4*$x-12*$y=8;
 ```
 The program will output:
+```
 $x = -3.0*$y-2.0
 $y = $y
+```
