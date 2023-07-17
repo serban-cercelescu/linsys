@@ -1,6 +1,5 @@
 # linsys
-
-This is a small Haskell project that I wrote to better familiarise myself with the Parsec library and with git.
+This is a small Haskell program that solves systems of linear equations that I wrote to better familiarise myself with the Parsec library and with git.
 
 ## Usage
 You may either directly enter the input from `stdin` (the program terminates when it reaches an `EOF` character). or give a filename as an argument. The output will be given in `stdout`. You can find a pre-built executable in the build folder. To try it out, run the command `stack run -- input.txt`
